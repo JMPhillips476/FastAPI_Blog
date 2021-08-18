@@ -4,6 +4,7 @@ from pydantic.networks import HttpUrl
 from . import schemas, models
 from .database import SessionLocal, engine
 from sqlalchemy.orm import Session
+from .hashing import Hash
 
 
 app = FastAPI()
@@ -68,9 +69,11 @@ def show(id, response : Response, db : Session = Depends(get_db)):
     return blog
 
 
+
+
 @app.post('/user', status_code=status.HTTP_201_CREATED)
 def create_user(request: schemas.User, db : Session = Depends(get_db)):
-    new_user = models.User(name = request.name, email = request.email, password = request.password)
+    new_user = models.User(name = request.name, email = request.email, password = Hash.bcrypt(request.password))
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
