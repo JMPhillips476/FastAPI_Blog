@@ -6,9 +6,12 @@ from ..database import SessionLocal, engine, get_db
 from sqlalchemy.orm import Session
 from ..hashing import Hash
 
-router = APIRouter()
+router = APIRouter(
+    tags = ['user'],
+    prefix = '/user'
+)
 
-@router.post('/user', status_code=status.HTTP_201_CREATED, response_model=schemas.ShowUser, tags=['user','post'])
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.ShowUser, tags=['post'])
 def create_user(request: schemas.User, db : Session = Depends(get_db)):
     new_user = models.User(name = request.name, email = request.email, password = Hash.bcrypt(request.password))
     db.add(new_user)
@@ -17,7 +20,7 @@ def create_user(request: schemas.User, db : Session = Depends(get_db)):
     return new_user
 
 
-@router.get('/user/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowUser, tags=['user','get'])
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowUser, tags=['get'])
 def get_user(id:int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
 
