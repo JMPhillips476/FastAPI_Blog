@@ -5,18 +5,18 @@ from ..database import get_db
 
 
 
-def get_all(db: Session):
+def get_all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blog).all()
     return blogs
 
-def create(request: schemas.Blog, db: Session):
+def create(request: schemas.Blog, db: Session = Depends(get_db)):
     new_blog = models.Blog(title=request.title, body=request.body, user_id = 1) #!temp hardcoding
     db.add(new_blog)
     db.commit()
     db.refresh(new_blog)
     return new_blog
 
-def destroy(id:int, db:Session):
+def destroy(id:int, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
 
     if not blog.first():

@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import Depends, status, APIRouter
 from .. import schemas
-from ..database import SessionLocal, engine, get_db
+from ..database import get_db
 from sqlalchemy.orm import Session
 from ..repository import blogDriver as blog
 
