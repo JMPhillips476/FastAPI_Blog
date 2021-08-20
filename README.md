@@ -33,7 +33,7 @@ FastAPI
 ```
 
 ## About the project
-This project makes use of FastAPI to create an API for a basic blog web application. The focus is on setting up a backend for the blog app with future plan to add a web interface. Using FastAPI's IP/docs link all functionality has been tested and followed up with using Postman. Postman is optional and was primary used to track JWT authentication. 
+This project makes use of FastAPI to create an API for a basic blog web application. The focus is on setting up a backend for the blog app with future plans to add a web interface. Using FastAPI's IP/docs url all functionality has been tested and followed up with using Postman. Postman is optional and was primarily used to track JWT authentication. 
 
 ### File Breakdown
 - main.py -> Primary script that has been cleaned to contain the bare minimum through the use of routers. 
